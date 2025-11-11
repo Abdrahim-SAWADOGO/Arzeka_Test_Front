@@ -1,0 +1,6 @@
+.history-container { max-width: 900px; margin: 30px auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px; border-bottom: 1px solid #ddd; text-align: left; }
+td.COMPLETED { color: green; font-weight: bold; }
+td.PENDING { color: orange; }
+td.FAILED { color: red; }

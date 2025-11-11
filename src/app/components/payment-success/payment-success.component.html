@@ -1,0 +1,15 @@
+<div class="result-card">
+  <h2>Statut du paiement</h2>
+
+  <div *ngIf="loading">Vérification en cours...</div>
+
+  <div *ngIf="error && !loading" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <p><strong>mappedOrderId:</strong> {{ mappedOrderIdFromGateway }}</p>
+    <p><strong>Statut reçu :</strong> {{ status?.status || status }}</p>
+
+    <pre *ngIf="status">{{ status | json }}</pre>
+  </div>
+  <button routerLink="/history">Voir l’historique des paiements</button>
+</div>

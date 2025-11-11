@@ -1,0 +1,27 @@
+.payment-card {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+label { display: block; margin-top: 10px; font-weight: 600; }
+input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; margin-top: 5px; }
+button {
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.receipt-section {
+  margin-top: 15px;
+  padding: 10px;
+  border-left: 3px solid #1976d2;
+  background: #f8f9fa;
+}

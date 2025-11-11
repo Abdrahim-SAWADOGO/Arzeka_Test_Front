@@ -1,0 +1,38 @@
+<div class="payment-card">
+  <h2>Initier un paiement</h2>
+
+  <label>Montant</label>
+  <input type="text" [(ngModel)]="amount">
+
+  <label>Prénom</label>
+  <input type="text" [(ngModel)]="firstname">
+
+  <label>Nom</label>
+  <input type="text" [(ngModel)]="lastname">
+
+  <label>Téléphone</label>
+  <input type="text" [(ngModel)]="mobile">
+
+  <label>
+    <input type="checkbox" [(ngModel)]="generateReceipt">
+    Générer une quittance Trésor
+  </label>
+
+  <div *ngIf="generateReceipt" class="receipt-section">
+    <label>Description du paiement</label>
+    <input type="text" [(ngModel)]="paymentDescription">
+
+    <label>Trésorerie / Bureau comptable</label>
+    <input type="text" [(ngModel)]="accountingOffice">
+
+    <label>Nom du comptable</label>
+    <input type="text" [(ngModel)]="accountantName">
+
+    <label>Adresse (facultatif)</label>
+    <input type="text" [(ngModel)]="address">
+  </div>
+
+  <button (click)="initiatePayment()" [disabled]="loading">
+    {{ loading ? 'Traitement...' : 'Initier le paiement' }}
+  </button>
+</div>
