@@ -1,38 +1,49 @@
 <div class="payment-card">
-  <h2>Initier un paiement</h2>
+  <h2>💳 Initier un paiement</h2>
 
-  <label>Montant</label>
-  <input type="text" [(ngModel)]="amount">
+  <div class="form-group">
+    <label>Montant <span class="required">*</span></label>
+    <input type="number" [(ngModel)]="amount" min="1" step="0.01" placeholder="Ex: 1000.00" required>
+  </div>
 
-  <label>Prénom</label>
-  <input type="text" [(ngModel)]="firstname">
+  <div class="form-group">
+    <label>Prénom <span class="required">*</span></label>
+    <input type="text" [(ngModel)]="firstname" placeholder="Votre prénom" required>
+  </div>
 
-  <label>Nom</label>
-  <input type="text" [(ngModel)]="lastname">
+  <div class="form-group">
+    <label>Nom <span class="required">*</span></label>
+    <input type="text" [(ngModel)]="lastname" placeholder="Votre nom" required>
+  </div>
 
-  <label>Téléphone</label>
-  <input type="text" [(ngModel)]="mobile">
+  <div class="form-group">
+    <label>Téléphone <span class="required">*</span></label>
+    <input type="tel" [(ngModel)]="mobile" placeholder="Ex: 67543245" required>
+  </div>
 
-  <label>
-    <input type="checkbox" [(ngModel)]="generateReceipt">
-    Générer une quittance Trésor
-  </label>
+  <h4 class="section-title">📄 Informations de quittance</h4>
 
-  <div *ngIf="generateReceipt" class="receipt-section">
-    <label>Description du paiement</label>
-    <input type="text" [(ngModel)]="paymentDescription">
+  <div class="form-group">
+    <label>Description du paiement <span class="required">*</span></label>
+    <input type="text" [(ngModel)]="paymentDescription" placeholder="Ex: Paiement de service">
+  </div>
 
-    <label>Trésorerie / Bureau comptable</label>
-    <input type="text" [(ngModel)]="accountingOffice">
+  <div class="form-group">
+    <label>Trésorerie / Bureau comptable <span class="required">*</span></label>
+    <input type="text" [(ngModel)]="accountingOffice" placeholder="Ex: Trésor Ouaga">
+  </div>
 
-    <label>Nom du comptable</label>
-    <input type="text" [(ngModel)]="accountantName">
+  <div class="form-group">
+    <label>Nom du comptable <span class="required">*</span></label>
+    <input type="text" [(ngModel)]="accountantName" placeholder="Ex: Comptable Général">
+  </div>
 
+  <div class="form-group">
     <label>Adresse (facultatif)</label>
-    <input type="text" [(ngModel)]="address">
+    <input type="text" [(ngModel)]="address" placeholder="Adresse complète (optionnelle)">
   </div>
 
   <button (click)="initiatePayment()" [disabled]="loading">
-    {{ loading ? 'Traitement...' : 'Initier le paiement' }}
+    {{ loading ? '🔄 Traitement...' : '🚀 Initier le paiement' }}
   </button>
 </div>

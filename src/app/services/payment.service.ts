@@ -12,22 +12,38 @@ interface InitPaymentResponse {
   providedIn: 'root'
 })
 export class PaymentService {
-  private base = environment.backendUrl;
+  base = environment.backendUrl; // URL de l'API Django
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // 🔹 Initier un paiement (avec champs de quittance)
+  /**
+   * 🔹 1️⃣ Initier un paiement (avec champs de quittance)
+   * L’API Django gère generateReceipt = true par défaut
+   */
   initPayment(payload: any): Observable<InitPaymentResponse> {
     return this.http.post<InitPaymentResponse>(`${this.base}/init-payment/`, payload);
   }
 
-  // 🔹 Vérifier un paiement
+  /**
+   * 🔹 2️⃣ Vérifier le statut d’un paiement
+   */
   checkPayment(mappedOrderId: string): Observable<any> {
     return this.http.get<any>(`${this.base}/check-payment/${mappedOrderId}/`);
   }
 
-  // 🔹 Récupérer l'historique des paiements
+  /**
+   * 🔹 3️⃣ Récupérer l’historique complet des paiements
+   */
   getAllPayments(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.base}/payments/`);
+    return this.http.get<any[]>(`${this.base}/payment-history/`);
+  }
+
+  /**
+   * 🔹 4️⃣ Télécharger une quittance PDF
+   */
+  downloadReceipt(orderId: string): Observable<Blob> {
+    return this.http.get(`${this.base}/download-receipt/${orderId}/`, {
+      responseType: 'blob' // très important pour un fichier binaire
+    });
   }
 }

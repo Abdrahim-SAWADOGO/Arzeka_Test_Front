@@ -6,10 +6,20 @@
   <div *ngIf="error && !loading" class="error">{{ error }}</div>
 
   <div *ngIf="!loading && !error">
-    <p><strong>mappedOrderId:</strong> {{ mappedOrderIdFromGateway }}</p>
-    <p><strong>Statut reçu :</strong> {{ status?.status || status }}</p>
+    <p><strong>Référence :</strong> {{ mappedOrderIdFromGateway }}</p>
+    <p><strong>Statut :</strong> {{ status?.status || status }}</p>
+    <p><strong>Montant :</strong> {{ status?.amount || '---' }}</p>
 
-    <pre *ngIf="status">{{ status | json }}</pre>
+    <button
+      *ngIf="status?.order_id && status?.status === 'COMPLETED'"
+      (click)="downloadReceipt(status.order_id)">
+      Télécharger la quittance PDF
+    </button>
+
+    <pre class="json-block">{{ status | json }}</pre>
+
+    <button routerLink="/history" class="secondary-btn">
+      Voir l’historique des paiements
+    </button>
   </div>
-  <button routerLink="/history">Voir l’historique des paiements</button>
 </div>

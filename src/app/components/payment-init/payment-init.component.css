@@ -1,27 +1,77 @@
 .payment-card {
   max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  margin: 50px auto;
+  padding: 25px 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
 }
 
-label { display: block; margin-top: 10px; font-weight: 600; }
-input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; margin-top: 5px; }
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.section-title {
+  margin-top: 25px;
+  color: #1976d2;
+  border-left: 4px solid #1976d2;
+  padding-left: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 15px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
 button {
-  margin-top: 20px;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
+  width: 100%;
+  padding: 12px 0;
   background-color: #1976d2;
-  color: white;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-}
-button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-.receipt-section {
   margin-top: 15px;
-  padding: 10px;
-  border-left: 3px solid #1976d2;
-  background: #f8f9fa;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #125ea5;
+}
+
+button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+}
+
+.required {
+  color: #d32f2f;
 }

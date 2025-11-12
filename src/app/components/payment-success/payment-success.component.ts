@@ -19,15 +19,12 @@ export class PaymentSuccessComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Selon la doc, la gateway redirige vers ?paymentRequestID=...
     this.route.queryParamMap.subscribe(params => {
-      this.mappedOrderIdFromGateway = params.get('paymentRequestID') || params.get('paymentRequestId') || null;
-
-      // Fallback : si on avait stocké mapped_order_id au moment de l'init
-      if (!this.mappedOrderIdFromGateway) {
-        const stored = localStorage.getItem('mapped_order_id');
-        if (stored) this.mappedOrderIdFromGateway = stored;
-      }
+      // selon la doc de la passerelle
+      this.mappedOrderIdFromGateway =
+        params.get('paymentRequestID') ||
+        params.get('paymentRequestId') ||
+        localStorage.getItem('mapped_order_id');
 
       if (this.mappedOrderIdFromGateway) {
         this.checkPayment(this.mappedOrderIdFromGateway);
@@ -49,6 +46,23 @@ export class PaymentSuccessComponent implements OnInit {
         console.error('Erreur checkPayment', err);
         this.error = 'Erreur lors de la vérification du paiement.';
         this.loading = false;
+      }
+    });
+  }
+
+  downloadReceipt(orderId: string) {
+    this.paymentService.downloadReceipt(orderId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `quittance_${orderId}.pdf`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Erreur téléchargement quittance', err);
+        alert("Impossible de télécharger la quittance pour le moment.");
       }
     });
   }

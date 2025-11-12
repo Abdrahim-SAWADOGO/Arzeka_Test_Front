@@ -7,9 +7,8 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
 const routes: Routes = [
   { path: '', component: PaymentInitComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
-  { path: '**', redirectTo: '' },
   { path: 'history', component: PaymentHistoryComponent },
-
+  { path: '**', redirectTo: '' } // <--- toujours la dernière !
 ];
 
 @NgModule({

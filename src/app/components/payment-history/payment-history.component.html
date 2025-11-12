@@ -1,33 +1,45 @@
 <div class="history-container">
-  <h2>Historique des paiements</h2>
+  <h2>📜 Historique des paiements</h2>
 
-  <div *ngIf="loading">Chargement...</div>
+  <div *ngIf="loading" class="loading">Chargement des transactions...</div>
+  <div *ngIf="error && !loading" class="error">{{ error }}</div>
 
   <table *ngIf="!loading && transactions.length">
     <thead>
       <tr>
         <th>Date</th>
-        <th>Nom</th>
+        <th>Nom complet</th>
         <th>Montant</th>
         <th>Statut</th>
         <th>Comptable</th>
         <th>Quittance</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let tx of transactions">
         <td>{{ tx.created_at | date:'short' }}</td>
         <td>{{ tx.additional_info.firstname }} {{ tx.additional_info.lastname }}</td>
-        <td>{{ tx.amount }} FCFA</td>
+        <td>{{ tx.amount | number:'1.2-2' }} FCFA</td>
         <td [ngClass]="tx.status">{{ tx.status }}</td>
         <td>{{ tx.accountant_name || '—' }}</td>
         <td>
           <span *ngIf="tx.generate_receipt">🧾 Oui</span>
           <span *ngIf="!tx.generate_receipt">—</span>
         </td>
+        <td>
+          <button 
+            *ngIf="tx.generate_receipt && tx.status === 'COMPLETED'"
+            class="btn-download"
+            (click)="downloadReceipt(tx.order_id)">
+            Télécharger PDF
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <div *ngIf="!loading && !transactions.length">Aucun paiement enregistré.</div>
+  <div *ngIf="!loading && !transactions.length" class="no-data">
+    Aucun paiement enregistré pour le moment.
+  </div>
 </div>

@@ -12,11 +12,10 @@ export class PaymentInitComponent {
   lastname = '';
   mobile = '';
 
-  // Champs de quittance
-  generateReceipt = false;
-  paymentDescription = '';
-  accountingOffice = '';
-  accountantName = '';
+  // Champs requis pour la quittance (toujours true)
+  paymentDescription = 'Paiement quittance automatique';
+  accountingOffice = 'Trésor Ouaga';
+  accountantName = 'Comptable Général';
   address = '';
 
   loading = false;
@@ -25,12 +24,7 @@ export class PaymentInitComponent {
 
   initiatePayment() {
     if (!this.firstname || !this.lastname || !this.mobile || !this.amount) {
-      alert('Veuillez remplir les champs obligatoires.');
-      return;
-    }
-
-    if (this.generateReceipt && (!this.paymentDescription || !this.accountingOffice || !this.accountantName)) {
-      alert('Les champs de quittance sont requis si vous activez la génération de quittance.');
+      alert('Veuillez remplir tous les champs obligatoires.');
       return;
     }
 
@@ -41,7 +35,7 @@ export class PaymentInitComponent {
       firstname: this.firstname,
       lastname: this.lastname,
       mobile: this.mobile,
-      generateReceipt: this.generateReceipt,
+      generateReceipt: true, // toujours true désormais
       paymentDescription: this.paymentDescription,
       accountingOffice: this.accountingOffice,
       accountantName: this.accountantName,
@@ -51,8 +45,14 @@ export class PaymentInitComponent {
     this.paymentService.initPayment(payload).subscribe({
       next: (res) => {
         console.log('✅ Paiement initialisé:', res);
-        window.location.href = res.payment_url; // redirige vers la passerelle
+
+        // 💾 Sauvegarde du mapped_order_id dans le localStorage
+        localStorage.setItem('mapped_order_id', res.mapped_order_id);
+
         this.loading = false;
+
+        // 🔁 Redirection vers la passerelle de paiement
+        window.location.href = res.payment_url;
       },
       error: (err) => {
         console.error('❌ Erreur initPayment:', err);
